@@ -3,6 +3,8 @@
 
 namespace App\Services;
 
+use App\Exceptions\LoginInvalidException;
+
 
 class AuthService
 {
@@ -10,11 +12,11 @@ class AuthService
     {
         $login = [
             'email' => $email,
-            'password' => $password
+            'password' => $password,
         ];
 
         if (!$token = auth()->attempt($login)) {
-            //erro
+            throw new LoginInvalidException();
         }
 
         return [
